@@ -1,0 +1,35 @@
+public class main {
+	
+	public static void main(String[] args) {
+		int count = 0;
+		Scanner in = new Scanner(System.in);
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		  .setOAuthConsumerKey("key")
+		  .setOAuthConsumerSecret("key")
+		  .setOAuthAccessToken("key")
+		  .setOAuthAccessTokenSecret("key");
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		
+        try {
+        	System.out.println("Enter a search word: ");
+        	String term = in.nextLine();
+            Query query = new Query(term + " -filter:retweets -filter:links -filter:replies -filter:images");
+            QueryResult result;
+            do {
+				result = twitter.search(query);
+                List<Status> tweets = result.getTweets();
+                for (Status tweet : tweets) {
+                    System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                    count++;
+                }
+            } while (((query = result.nextQuery()) != null) && count < 1000);
+            System.exit(0);
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to search tweets: " + te.getMessage());
+            System.exit(-1);
+        }
+    }
+}
