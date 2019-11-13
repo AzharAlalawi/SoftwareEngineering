@@ -1,0 +1,89 @@
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class main {
+   private JFrame mainFrame;
+   private JPanel newPanel;
+   private JLabel headerLabel;
+   private JLabel statusLabel;
+   private JPanel controlPanel;
+
+   public main(){
+      prepareGUI();
+   }
+   public static void main(String[] args){
+      main swingControlDemo = new main();  
+      swingControlDemo.showEventDemo();
+      
+   }
+   private void prepareGUI(){
+      mainFrame = new JFrame("Know Social");
+      
+      mainFrame.setSize(1024,768);
+      mainFrame.setLayout(new GridLayout(3, 1));
+
+      headerLabel = new JLabel("",JLabel.CENTER );
+      statusLabel = new JLabel("",JLabel.CENTER);        
+      statusLabel.setSize(350,100);
+      
+      mainFrame.addWindowListener(new WindowAdapter() {
+         public void windowClosing(WindowEvent windowEvent){
+            System.exit(0);
+         }        
+      });    
+      controlPanel = new JPanel();
+      newPanel = new JPanel();
+      controlPanel.setLayout(new FlowLayout());
+      newPanel.setLayout(new FlowLayout());
+
+      mainFrame.add(headerLabel);
+      mainFrame.add(controlPanel);
+      mainFrame.add(statusLabel);
+      mainFrame.setVisible(true);  
+   }
+   private void showEventDemo(){
+      JTextField username = new JTextField(20);
+      JTextField password = new JTextField(20);
+      JButton okButton = new JButton("OK");
+      JButton submitButton = new JButton("Submit");
+      JButton cancelButton = new JButton("Cancel");
+      JLabel usr = new JLabel(); 
+      usr.setText("Username");
+      JLabel pwd = new JLabel();
+      pwd.setText("Password");
+      
+
+      okButton.setActionCommand("OK");
+      submitButton.setActionCommand("Submit");
+      cancelButton.setActionCommand("Cancel");
+
+      okButton.addActionListener(new ButtonClickListener()); 
+      submitButton.addActionListener(new ButtonClickListener()); 
+      cancelButton.addActionListener(new ButtonClickListener());
+      controlPanel.add(usr);
+      controlPanel.add(username);
+      controlPanel.add(pwd);
+      controlPanel.add(password);
+      controlPanel.add(okButton);
+      controlPanel.add(submitButton);
+      controlPanel.add(cancelButton);
+
+      mainFrame.setVisible(true);  
+   }
+   private class ButtonClickListener implements ActionListener{
+      public void actionPerformed(ActionEvent e) {
+         String command = e.getActionCommand();  
+         
+         if( command.equals( "OK" ))  {
+            statusLabel.setText("Ok Button clicked.");
+         } else if( command.equals( "Submit" ) )  {
+        	 controlPanel.removeAll();
+        	 newPanel.setVisible(true);
+         } else {
+            statusLabel.setText("Cancel Button clicked.");
+         } 
+      }
+   }
+}
