@@ -17,13 +17,14 @@ public class client {
         
             //establish socket connection to server
             socket = new Socket(host.getHostName(), 9876);
+            
+            
             //write to socket using ObjectOutputStream
             oos = new ObjectOutputStream(socket.getOutputStream());
             System.out.println("Sending request to Socket Server");
             
             
            
-          
             ois = new ObjectInputStream(socket.getInputStream());
             String username = (String) ois.readObject();
             System.out.println(username);
@@ -41,6 +42,10 @@ public class client {
             //close resources
             
             Thread.sleep(5000);
+            while(socket.isConnected()) {
+            	Thread.sleep(5000);
+            	System.out.println("...Connected to Server...");
+            }
         
     }
 }
