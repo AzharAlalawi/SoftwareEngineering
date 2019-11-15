@@ -55,13 +55,13 @@ DROP TABLE IF EXISTS `Tweets`;
 CREATE TABLE `Tweets` (
   `tweetID` int(11) NOT NULL,
   `TweetText` varchar(285) DEFAULT NULL,
-  `VeryPositivePercentage_copy1` decimal(5,0) DEFAULT NULL,
-  `PositivePercentage_copy1` decimal(5,0) DEFAULT NULL,
-  `NeutralPercentage_copy1` decimal(5,0) DEFAULT NULL,
-  `NegativePercentage_copy1` decimal(5,0) DEFAULT NULL,
-  `VeryNegativePercentage` decimal(5,0) DEFAULT NULL,
-  `SentimentResult` varchar(10) DEFAULT NULL,
-  `SentimentScore` decimal(5,0) DEFAULT NULL,
+  `VeryPositivePercentage` double DEFAULT NULL,
+  `PositivePercentage` double DEFAULT NULL,
+  `NeutralPercentage` double DEFAULT NULL,
+  `NegativePercentage` double DEFAULT NULL,
+  `VeryNegativePercentage` double DEFAULT NULL,
+  `SentimentResult` varchar(50) DEFAULT NULL,
+  `SentimentScore` double DEFAULT NULL,
   PRIMARY KEY (`tweetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -72,6 +72,7 @@ CREATE TABLE `Tweets` (
 
 LOCK TABLES `Tweets` WRITE;
 /*!40000 ALTER TABLE `Tweets` DISABLE KEYS */;
+INSERT INTO `Tweets` VALUES (1,'Tweet Text is recorded right here!:))))) ',99.5,13.5,40.5,50.5,20.5,'Negative',20.5);
 /*!40000 ALTER TABLE `Tweets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +99,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'User1 First','User1 Last','test','test'),(2,'Aaron','Havard','ahavard','ahavard');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-07 16:46:30
+-- Dump completed on 2019-11-14 21:46:13
