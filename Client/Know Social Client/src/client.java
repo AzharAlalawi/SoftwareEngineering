@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 public class client {
 
+	@SuppressWarnings("null")
 	public static void main(String[] args)throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException{
         //get the localhost IP address, if server is running on some other IP, you need to use that
         InetAddress host = InetAddress.getLocalHost();
+        
         Socket socket = null;
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
@@ -21,31 +23,50 @@ public class client {
             
             //write to socket using ObjectOutputStream
             oos = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Sending request to Socket Server");
-            
-            
-           
             ois = new ObjectInputStream(socket.getInputStream());
-            String username = (String) ois.readObject();
-            System.out.println(username);
+           try {
+        	   String instruction = (String) ois.readObject();
+               if (instruction.equals("doAuth"))
+               {
+                   Scanner in = new Scanner(System.in);
+                   userPass newUser = new userPass();
+                   System.out.println("Enter Username:");
+                   newUser.setUsername(in.nextLine());
+                   System.out.println("Enter Password:");
+                   newUser.setPassword(in.nextLine());
+                   oos.writeObject(newUser);
+                   instruction = (String) ois.readObject();
+                   if (instruction.equals("authenticated"))
+                   {
+                	   while(true) 
+                	   {
+                		   System.out.println("Connected");
+                		   
+                	   }
+                   }
+                   else if (instruction.equals("authFailed")) 
+                   {
+                	  
+                	   System.out.println("Invalid username and password");
+                	  
+                   }
+                
+               
+           }
+           }
+               catch(NullPointerException e) 
+           { 
+               System.out.print("NullPointerException Caught"); 
+           } 
+           
+         
             
-            Scanner in = new Scanner(System.in);
-            oos.writeObject(in.nextLine());
-            
-            String password = (String) ois.readObject();
-            System.out.println(password);
-            oos.writeObject(in.nextLine());
-            
-            String message = (String) ois.readObject();
-            System.out.println(message);
             
             //close resources
+           
+            socket.close();
             
-            Thread.sleep(5000);
-            while(socket.isConnected()) {
-            	Thread.sleep(5000);
-            	System.out.println("...Connected to Server...");
-            }
         
     }
 }
+
