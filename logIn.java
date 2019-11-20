@@ -10,28 +10,30 @@ import java.awt.event.*;
 import java.io.PrintStream;
 import java.util.Date;
 
-public class login {
+public class logIn {
 	
 	
-	public login(){
-	
+	public logIn(){
+		//Get the screen size  
+		Toolkit toolkit = Toolkit.getDefaultToolkit();  
+		Dimension screenSize = toolkit.getScreenSize(); 
 		String username;
 		String password;
         //Creating the Frame
         JFrame frame = new JFrame("Know Social");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 500);
-
-        //Creating the MenuBar and adding components
+        frame.setSize(300, 300);
         
-        JMenuItem m22 = new JMenuItem("About");
-        JMenuItem m33 = new JMenuItem("Quit");
-        m1.add(m33);
-        m2.add(m22);
+      //Calculate the frame location
+        int x = (screenSize.width - frame.getWidth()) / 2;  
+        int y = (screenSize.height - frame.getHeight()) / 2;  
+          
+        //Set the new frame location  
+        frame.setLocation(x, y); 
 
         //Creating the panel at bottom and adding components
         JPanel panel = new JPanel(); // the panel is not visible in output
-        JLabel user = new JLabel("Username",SwingConstants.CENTER);
+        JLabel user = new JLabel("Username");
         JLabel pwd = new JLabel("Password");
         JTextField tf = new JTextField(20); // accepts up to 10 characters
         JTextField tf2 = new JTextField(20); // accepts up to 10 characters
@@ -42,19 +44,6 @@ public class login {
         panel.add(tf2);
         panel.add(send);
         
-        //Action for Quit Button
-        m33.addActionListener(new ActionListener() {
-        	  public void actionPerformed(ActionEvent event) {
-        	    System.exit(0);
-        	  
-        	  }
-        	  });
-        //Action for About Button
-        m22.addActionListener(new ActionListener() {
-        	  public void actionPerformed(ActionEvent event) {
-        	    JOptionPane.showMessageDialog(frame, "Version 1.0");
-        	  }
-        	});
 
         // Text Area at the Center
         JTextArea ta = new JTextArea();
@@ -65,5 +54,4 @@ public class login {
         //frame.getContentPane().add(BorderLayout.CENTER, ta);
         frame.setVisible(true);
     }
-
 }
