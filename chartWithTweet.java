@@ -73,7 +73,7 @@ public class chartWithTweet {
 
 		// Pull Image and Set Background
 		BufferedImage image = null;
-		File url = new File("/Users/joeythompson/eclipse-workspace/KnowSocialGUI/src/bg.png");
+		File url = new File("link to bg image");
 		try {
 			image = ImageIO.read(url);
 		} catch (IOException e) {
