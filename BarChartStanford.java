@@ -22,25 +22,25 @@ import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.ui.TextAnchor;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class BarChart {
+public class BarChartStanford {
 
 	public static void main(String[] args) {
 
 		// Create & Configure Window
 		JFrame window = new JFrame();
 		window.setTitle("Know Social");
-		window.setSize(720, 480);
+		window.setSize(1100, 1280);
 		window.setLayout(new BorderLayout());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Get the screen size  
-		Toolkit toolkit = Toolkit.getDefaultToolkit();  
-		Dimension screenSize = toolkit.getScreenSize(); 
-		  //Calculate the frame location
-		  int x = (screenSize.width - window.getWidth()) / 2;  
-		  int y = (screenSize.height - window.getHeight()) / 2; 
-		  
-		  //Set the new frame location  
-		  window.setLocation(x, y); 
+		// Get the screen size
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = toolkit.getScreenSize();
+		// Calculate the frame location
+		int x = (screenSize.width - window.getWidth()) / 2;
+		int y = (screenSize.height - window.getHeight()) / 2;
+
+		// Set the new frame location
+		window.setLocation(x, y);
 
 		// Create Drop-down Box & Place at Top of Window
 		JPanel topPanel = new JPanel();
@@ -52,14 +52,15 @@ public class BarChart {
 		barChartData.setValue(26, "Negative Sentiment", "Negative");
 
 		// Create Chart
-		JFreeChart barChart = ChartFactory.createBarChart("Overall Sentiment for Keyword is Positive w/Stanford Core NLP", "Sentiment",
+		JFreeChart barChart = ChartFactory.createBarChart(
+				"Overall Sentiment for Keyword is Positive w/Stanford Core NLP", "Sentiment",
 				"Sentiment Percentage ( % )", barChartData);
 		CategoryPlot barChrt = barChart.getCategoryPlot();
 		barChrt.setRangeGridlinePaint(Color.WHITE);
 
 		// Pull Image and Set Background
 		BufferedImage image = null;
-		File url = new File("path to bg");
+		File url = new File("Link to bg image");
 		try {
 			image = ImageIO.read(url);
 		} catch (IOException e) {
