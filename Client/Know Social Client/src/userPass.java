@@ -2,6 +2,8 @@
 public class userPass implements java.io.Serializable{
 	private String user;
 	private String pass;
+	private String first;
+	private String last;
 	
 		public userPass(String username, String password)
 		{
@@ -14,7 +16,6 @@ public class userPass implements java.io.Serializable{
 			
 			
 		}
-		
 		public void setUsername(String username) {
 			user = username;
 		}
@@ -29,6 +30,7 @@ public class userPass implements java.io.Serializable{
 		public String getPassword() {
 			return pass;
 		}
+	
 	}
 	
 
