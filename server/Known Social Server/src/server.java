@@ -116,7 +116,7 @@ public class server {
 								commandParameter searchParams = (commandParameter) newCommand.getParameters();
 								String searchWord = searchParams.getSearchString();
 								int count = searchParams.getReturnCount();
-								int zipcode = 0;
+								int zipcode = searchParams.getZipcode();
 								String user = searchParams.getUserSearched();
 								search newSearch = new search();
 								newSearch.search(searchWord, zipcode, count, user);

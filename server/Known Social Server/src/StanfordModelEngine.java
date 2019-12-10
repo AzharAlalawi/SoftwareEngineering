@@ -144,13 +144,16 @@ public class StanfordModelEngine {
 		newReport.setNeutral(neutTotal);
 		newReport.setPositive(posTotal);
 		newReport.setVeryPositive(veryPosTotal);
-		if (pos > neg && pos >= neut) {
+		if (pos > neg && pos >= neut) 
+		{
 			outcome = "Positive";
 		}
-		if (neut > pos && neut > neg) {
+		if (neut > pos && neut > neg) 
+		{
 			outcome = "Neutral";
 		}
-		if (neg >= neut && neg > pos) {
+		if (neg >= neut && neg > pos) 
+		{
 			outcome = "Negative";
 		}
 		newReport.setSentimentalOutcome(outcome);

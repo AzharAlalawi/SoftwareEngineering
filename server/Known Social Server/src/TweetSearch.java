@@ -41,13 +41,15 @@ public class TweetSearch implements java.io.Serializable{
 	        	System.out.println("Enter a search word: ");
 	        	String term = searchWord;
 	            Query query = new Query(term + " -filter:retweets -filter:links -filter:replies -filter:images lang:en");
-	            Location loc = new Location();
+	            
 	            if (zipcode > 0) {
 	            	
 	            	try {
-						loc = dao.findLocation(zipcode);
+						Location loc = dao.findLocation(zipcode);
 						 double lat = loc.getLatitude();
+						 
 						 double log = loc.getLongitude();
+						 
 						query.geoCode(new GeoLocation(lat, log), 50, "mi");
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -66,6 +68,7 @@ public class TweetSearch implements java.io.Serializable{
 	                   // System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
 	                	tweets2.add(tweet.getText());         	
 	                    count++;
+	                   
 	                }
 	            } while (((query = result.nextQuery()) != null) && count < tweetCount);
 	           

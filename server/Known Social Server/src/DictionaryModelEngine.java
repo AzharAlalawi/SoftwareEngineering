@@ -94,6 +94,7 @@ public class DictionaryModelEngine implements java.io.Serializable{
 					if (Arrays.asList(words).contains(positiveWords.get(h))) {
 						posi++;
 						posT++;
+						
 					}
 				}
 				for (int g = 0; g < negativeWords.size(); g++) 
@@ -101,35 +102,35 @@ public class DictionaryModelEngine implements java.io.Serializable{
 					if (Arrays.asList(words).contains(negativeWords.get(g))) {
 						negi++;
 						negT++;
+						
 					}
 				}
 				analysis.setPositiveCount(posi);
 				analysis.setNegativeCount(negi);
 				
 				
-				
-				
-				if (posi > negi)
-					total++;
-				
-				if (negi > posi)
-					total--;
-				
-				posi = 0;
-				negi = 0;
-
 				String result = null;
-				
-				if (total > 0) {
+				if (posi > negi)
+				{
 					result = "Positive";
-				} else if (total < 0) {
-					result = "Negative";
-				} else if (total == 0) {
-					result = "Neutral";
 				}
 				
+				if (negi > posi)
+				{
+					result = "Negative";
+				}
+				
+				if (negi == posi)
+				{
+					result = "Neutral";
+				}
+					
+				
+				
+				
 				analysis.setSentimentResult(result);
-
+				posi = 0;
+				negi = 0;
 				try {
 					dao.writeDictAnalysis(analysis);
 					idCount++;
