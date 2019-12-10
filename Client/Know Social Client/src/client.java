@@ -50,6 +50,7 @@ public class client {
          				//login login2 = new login();
     					
          
+            			
             			while(!authenticated) 
                  	   	{
             				while(login2.loop);
@@ -131,6 +132,25 @@ public class client {
         			GUI.loop = true;
         			GUI.command = "";
         			
+    			} else if (GUI.command.equals("History"))
+    			{
+    				GUI.loop2 = true;
+        			System.out.println("calling for all history");
+        			command history = new command(1, "getHistory", null);
+        			oos.reset();
+        			oos.writeObject(history);
+        			
+        			System.out.println("getting history");
+        			ArrayList<Report> reports = new ArrayList<>();
+        			reports = (ArrayList<Report>) ois.readObject();
+        			GUI.History = reports;
+        			GUI.loop2 = false;
+        			GUI.loop = true;
+        			GUI.loop2 = false;
+        			GUI.loop2 = false;
+        			GUI.command = "";
+        			System.out.println("History got");
+        			
     			}
     			
     			
@@ -139,85 +159,7 @@ public class client {
 					e.printStackTrace();
 				}
 				
-//    			System.out.println("+++Report START++++");
-//    			System.out.println(justSearched.getReportID());
-//    			System.out.println("+++Report START++++");
-//    			System.out.println("+++Report START++++");
-//    			System.out.println("+++Report START++++");
-//    			
-//    			
-//    			none = new command(1, "None", null);
-//            	oos.reset();
-//    			oos.writeObject(none);
-//    			
-//    			System.out.println("calling for all history");
-//    			command history = new command(1, "getHistory", null);
-//    			oos.reset();
-//    			oos.writeObject(history);
-//    			
-//    			System.out.println("getting history");
-//    			ArrayList<Report> reports = new ArrayList<>();
-//    			reports = (ArrayList<Report>) ois.readObject();
-//    			for(int i = 0; i< (reports.size()); i++) 
-//    			{
-//    				System.out.println("+++Report START++++");
-//    				System.out.println(reports.get(i).getReportID());
-//    				System.out.println(reports.get(i).getStanfordID());
-//    				System.out.println(reports.get(i).getDictionaryID());
-//    				System.out.println(reports.get(i).getUserSearched());
-//    				System.out.println("+++Report STANFORD++++");
-//    				System.out.println(reports.get(i).getStanford_Report().getReportID());
-//    				System.out.println(reports.get(i).getStanford_Report().getVeryPositive());
-//    				System.out.println(reports.get(i).getStanford_Report().getPositive());
-//    				System.out.println(reports.get(i).getStanford_Report().getNeutral());
-//    				System.out.println(reports.get(i).getStanford_Report().getNegative());
-//    				System.out.println(reports.get(i).getStanford_Report().getVeryNegative());
-//    				System.out.println(reports.get(i).getStanford_Report().getSentimentalOutcome());
-//    				System.out.println(reports.get(i).getStanford_Report().getDatabaseIdStart());
-//    				System.out.println(reports.get(i).getStanford_Report().getDatabaseIdEnd());
-//    				System.out.println("+++Report DICTIONARY++++");
-//    				System.out.println(reports.get(i).getDictionary_Report().getReportID());
-//    				System.out.println(reports.get(i).getDictionary_Report().getTotalPositive());
-//    				System.out.println(reports.get(i).getDictionary_Report().getTotalNegative());
-//    				System.out.println(reports.get(i).getDictionary_Report().getSentimentalOutcome());
-//    				System.out.println(reports.get(i).getDictionary_Report().getTotalTweets());
-//    				System.out.println(reports.get(i).getDictionary_Report().getWordSearched());
-//    				System.out.println(reports.get(i).getDictionary_Report().getDatabaseStartID());
-//    				System.out.println(reports.get(i).getDictionary_Report().getDatabaseEndID());
-//    				
-//    				
-//    			}
-//    		
-    			
-    			
-    			
-//    			System.out.println("one history");
-//    			command historyID = new command(1, "getReport", null);
-//    			commandParameter Params = new commandParameter("Puppies", 1, 20);
-//    			oos.reset();
-//    			oos.writeObject(historyID);
-//    			
-//    			System.out.println("getting one history");
-//    			Report newR = new Report();
-//    			newR = (Report) ois.readObject();
-//    			System.out.println(newR.getStanford_Report().getNegative());
-//    			
-//    			
-    			
-    			
-    			
-            	
-            	//call knowSocial Class
-            	
-            	//Main GUI starts here.
-            	
-            	
-            	// Analysis arguments:
-            	// MODE - Facebook/Twitter/both (use int 1=Facebook, 2 = Twitter, 3 = Both)
-            	// data return count - int for facebook and int for twitter.
-            	// Search String
-            	
-            	
+
             	
             	
             

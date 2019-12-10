@@ -53,10 +53,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TestMainGUI extends JFrame {
 
-	private JPanel contentPane;
+	volatile public JPanel contentPane;
+	volatile public JLayeredPane RightPanel5 = new JLayeredPane();
 	volatile public JTextField textField;
 	volatile public JTextField textField_1;
 	volatile public JLabel button = new JLabel("");
@@ -67,15 +69,17 @@ public class TestMainGUI extends JFrame {
 	volatile JLabel error = new JLabel("Invalid Username and Password");
 	volatile public JTextField zipcode = new JTextField();
 	volatile public JTextField Count = new JTextField();
-	volatile public JLabel keywordDATA = new JLabel("Bananas");
-	volatile public JLabel OutcomeDATA = new JLabel("Positive");
-	volatile public JLabel countDATA = new JLabel("150");
-	volatile public JLabel ZipDATA = new JLabel("28269");
-	volatile public JLabel UserDATA = new JLabel("Aaron H.");
+	volatile public JLabel ViewButton = new JLabel("");
 	volatile public String command = "";
 	volatile public Report justSearched = new Report();
+	volatile public ArrayList<Report> History = new ArrayList<>();
 	volatile public JLabel keyword = new JLabel("", SwingConstants.CENTER);
 	volatile public JLabel Analysis = new JLabel("", SwingConstants.CENTER);
+	volatile public JLabel TweetCount = new JLabel("", SwingConstants.CENTER);
+	volatile public int timesClicked = 0;
+	
+	public int tweetSelected = 1;
+	public int tweetTotal = 0;
 	int xx, xy;
 
 	/**
@@ -186,7 +190,7 @@ public class TestMainGUI extends JFrame {
 			}
 		});
 		// GUI WHILE SEARCHING.
-		JLayeredPane RightPanel5 = new JLayeredPane();
+		
 		RightPanel5.setBounds(250, 0, 774, 700);
 		RightPanel5.setLayout(null);
 		
@@ -273,89 +277,13 @@ public class TestMainGUI extends JFrame {
 		RightPanel2.add(Search2, JLayeredPane.PALETTE_LAYER);
 
 		Border line = BorderFactory.createLineBorder(new Color(0, 150, 250), 2);
-		for (int i = 1; i < 4; i++) {
-			// Background Bar
-			JPanel history1 = new JPanel();
-			history1.setBounds(0, (100 * i) + (15 * i), 774, 75);
-			history1.setBorder(line);
-			history1.setBackground(new Color(0, 50, 100));
-			history1.setOpaque(true);
-			history1.setLayout(null);
-			RightPanel2.add(history1, JLayeredPane.PALETTE_LAYER);
+		
+		
+		
+		
 
-			// keyword Label
-			JLabel keywordLabel = new JLabel("Keyword:");
-			keywordLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			keywordLabel.setBounds(50, 10, 100, 25);
-			keywordLabel.setForeground(Color.WHITE);
-			history1.add(keywordLabel, JLayeredPane.PALETTE_LAYER);
-
-			
-			keywordDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
-			keywordDATA.setBounds(48, 40, 100, 25);
-			keywordDATA.setForeground(Color.WHITE);
-			history1.add(keywordDATA, JLayeredPane.PALETTE_LAYER);
-
-			// outcome label
-			JLabel OutcomeLabel = new JLabel("Outcome:");
-			OutcomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			OutcomeLabel.setBounds(175, 10, 100, 25);
-			OutcomeLabel.setForeground(Color.WHITE);
-			history1.add(OutcomeLabel, JLayeredPane.PALETTE_LAYER);
-
-			
-			OutcomeDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
-			OutcomeDATA.setBounds(173, 40, 100, 25);
-			OutcomeDATA.setForeground(Color.GREEN);
-			history1.add(OutcomeDATA, JLayeredPane.PALETTE_LAYER);
-
-			// Count Fields
-			JLabel countLabel2 = new JLabel("Data Count:");
-			countLabel2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			countLabel2.setBounds(300, 10, 100, 25);
-			countLabel2.setForeground(Color.WHITE);
-			history1.add(countLabel2, JLayeredPane.PALETTE_LAYER);
-
-			
-			countDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
-			countDATA.setBounds(320, 40, 100, 25);
-			countDATA.setForeground(Color.WHITE);
-			history1.add(countDATA, JLayeredPane.PALETTE_LAYER);
-
-			// Zipcode Fields
-			JLabel ZipLabel2 = new JLabel("Zipcode:");
-			ZipLabel2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			ZipLabel2.setBounds(445, 10, 100, 25);
-			ZipLabel2.setForeground(Color.WHITE);
-			history1.add(ZipLabel2, JLayeredPane.PALETTE_LAYER);
-
-			
-			ZipDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
-			ZipDATA.setBounds(445, 40, 100, 25);
-			ZipDATA.setForeground(Color.WHITE);
-			history1.add(ZipDATA, JLayeredPane.PALETTE_LAYER);
-
-			// User Fields
-			JLabel UserLabel = new JLabel("User Searched:");
-			UserLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			UserLabel.setBounds(540, 10, 125, 25);
-			UserLabel.setForeground(Color.WHITE);
-			history1.add(UserLabel, JLayeredPane.PALETTE_LAYER);
-
-			
-			UserDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
-			UserDATA.setBounds(560, 40, 100, 25);
-			UserDATA.setForeground(Color.WHITE);
-			history1.add(UserDATA, JLayeredPane.PALETTE_LAYER);
-
-			// View Button
-			JLabel ViewButton = new JLabel("");
-			ViewButton.setIcon(new ImageIcon(TestMainGUI.class.getResource("/images/View Button.png")));
-			ViewButton.setBounds(675, 0, 100, 75);
-			history1.add(ViewButton, JLayeredPane.PALETTE_LAYER);
-
-		}
-
+		
+		
 		// Right Panel GRAPH.
 		JLayeredPane RightPanel3 = new JLayeredPane();
 		RightPanel3.setBounds(250, 0, 774, 700);
@@ -641,7 +569,7 @@ public class TestMainGUI extends JFrame {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		ScrollPane.setBounds(10, 25, 360, 125);
 		ScrollPane.setBackground(Color.darkGray);
-		sampleTextArea.setText("hello this is a tweet.");
+		
 		DetailedPanel.add(ScrollPane, JLayeredPane.PALETTE_LAYER);
 
 		
@@ -659,11 +587,7 @@ public class TestMainGUI extends JFrame {
 
 		// Get Chart Data
 		DefaultCategoryDataset barChartData3 = new DefaultCategoryDataset();
-		barChartData3.setValue(50, "VeryNegative", "");
-		barChartData3.setValue(55, "Negative", "");
-		barChartData3.setValue(60, "Neutral", "");
-		barChartData3.setValue(65, "Positive", "");
-		barChartData3.setValue(70, "VeryPositive", "");
+		
 //			barChartData.setValue(report.getStanford_Report().getVeryNegative(), "VeryNegative", "VeryNegative");
 //			barChartData.setValue(report.getStanford_Report().getNegative(), "Negative", "Negative");
 //			barChartData.setValue(report.getStanford_Report().getNeutral(), "Neutral", "Neutral");
@@ -742,8 +666,7 @@ public class TestMainGUI extends JFrame {
 		// Get Chart Data
 		DefaultCategoryDataset barChartData4 = new DefaultCategoryDataset();
 
-		barChartData4.setValue(55, "Negative", "");
-		barChartData4.setValue(65, "Positive", "");
+		
 		
 //					barChartData.setValue(report.getStanford_Report().getVeryNegative(), "VeryNegative", "VeryNegative");
 //					barChartData.setValue(report.getStanford_Report().getNegative(), "Negative", "Negative");
@@ -853,7 +776,7 @@ public class TestMainGUI extends JFrame {
 		TweetLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		TweetControls.add(TweetLabel, JLayeredPane.PALETTE_LAYER);
 		
-		JLabel TweetCount = new JLabel("1 / 150", SwingConstants.CENTER);
+		
 		TweetCount.setBounds(100,30, 150, 75);
 		TweetCount.setForeground(Color.WHITE);
 		TweetCount.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -893,30 +816,33 @@ public class TestMainGUI extends JFrame {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
 				
-				command = "Search";
-				loop2 = true;
-				loop = false;
-				contentPane.remove(RightPanel);
-				contentPane.remove(RightPanel2);
-				contentPane.remove(RightPanel3);
+				
+				
+				
+				contentPane.removeAll();
+				contentPane.add(LeftPanel);
 				contentPane.add(RightPanel5);
 				contentPane.validate();
-				contentPane.repaint();
 				
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+				contentPane.repaint();
+			
+				
+				
+				
+				timesClicked = 0;
+				
+				
+				
+				
+				command = "Search";
+				
+				loop = false;
+				
+				loop2 = true;
 				while(loop2);
 				
-				contentPane.remove(RightPanel5);
-				contentPane.add(RightPanel3);
-				contentPane.validate();
-				contentPane.repaint();	
 				keyword.setText(justSearched.getDictionary_Report().getWordSearched());
 				String outcome = justSearched.getStanford_Report().getSentimentalOutcome();
 				Analysis.setText(outcome);
@@ -924,13 +850,14 @@ public class TestMainGUI extends JFrame {
 				{
 				Analysis.setForeground(Color.RED);
 				}
-				contentPane.validate();
-				contentPane.repaint();	
+				
+				
 				barChartData.addValue(justSearched.getStanford_Report().getVeryNegative(),  "Very Negative","");
 				barChartData.addValue(justSearched.getStanford_Report().getNegative(),  "Negative", "");
 				barChartData.addValue(justSearched.getStanford_Report().getNeutral(),  "Neutral", "");
 				barChartData.addValue(justSearched.getStanford_Report().getPositive(),  "Positive", "");
 				barChartData.addValue(justSearched.getStanford_Report().getVeryPositive(),  "Very Positive", "");
+				Result.setForeground(Color.GREEN);
 				outcome = justSearched.getStanford_Report().getSentimentalOutcome();
 				if(outcome.equals("Negative") || outcome.equals("Very Negative"))
 				{
@@ -940,6 +867,7 @@ public class TestMainGUI extends JFrame {
 				
 				barChartData2.addValue(justSearched.getDictionary_Report().getTotalNegative(),  "Negative", "");
 				barChartData2.addValue(justSearched.getDictionary_Report().getTotalPositive(),  "Positive", "");
+				Result2.setForeground(Color.GREEN);
 				String outcome2 = justSearched.getDictionary_Report().getSentimentalOutcome();
 				if(outcome2.equals("Negative"))
 				{
@@ -947,6 +875,143 @@ public class TestMainGUI extends JFrame {
 				}
 				Result2.setText(outcome2);
 				
+				
+				
+				try {
+					Thread.sleep(250);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				contentPane.removeAll();
+				contentPane.add(LeftPanel);
+				contentPane.add(RightPanel3);
+				
+				contentPane.validate();
+				contentPane.repaint();
+				
+			}
+		});
+		
+		
+		NextButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				if(tweetSelected < tweetTotal)
+				{
+				tweetSelected++;
+				barChartData3.removeValue("Very Negative", "");
+				barChartData3.removeValue("Negative", "");
+				barChartData3.removeValue("Neutral", "");
+				barChartData3.removeValue("Positive", "");
+				barChartData3.removeValue("Very Positive", "");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryNegative(),  "Very Negative","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNegative(),  "Negative","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNeutral(),  "Neutral","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getPositive(),  "Positive","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryPositive(),  "Very Positive","");
+				Result4.setForeground(Color.GREEN);
+				String outcome = justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getResult();
+				if(outcome.equals("Negative") || outcome.equals("Very Negative"))
+				{
+					Result4.setForeground(Color.RED);
+				}
+				if(outcome.equals("Neutral"))
+				{
+					Result4.setForeground(Color.WHITE);
+				}
+				Result4.setText(outcome);
+				
+				barChartData4.removeValue("Negative", "");
+				barChartData4.removeValue("Positive", "");
+				barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getNegativeCount(),  "Negative", "");
+				barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getPositiveCount(),  "Positive", "");
+				Result3.setForeground(Color.GREEN);
+				String outcome2 = justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getSentimentResult();
+				if(outcome2.equals("Negative"))
+				{
+					Result3.setForeground(Color.RED);
+				}
+				if(outcome2.equals("Neutral"))
+				{
+					Result3.setForeground(Color.WHITE);
+				}
+				Result3.setText(outcome2);
+				
+				sampleTextArea.setText(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getText());
+				TweetCount.setText(tweetSelected +" / " + tweetTotal);
+				
+				contentPane.validate();
+				contentPane.repaint();
+				}
+				else {
+					
+				}
+
+			}
+		});
+		PrevButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				if(tweetSelected > 1)
+				{
+				tweetSelected--;
+				barChartData3.removeValue("Very Negative", "");
+				barChartData3.removeValue("Negative", "");
+				barChartData3.removeValue("Neutral", "");
+				barChartData3.removeValue("Positive", "");
+				barChartData3.removeValue("Very Positive", "");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryNegative(),  "Very Negative","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNegative(),  "Negative","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNeutral(),  "Neutral","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getPositive(),  "Positive","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryPositive(),  "Very Positive","");
+				Result4.setForeground(Color.GREEN);
+				
+				String outcome = justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getResult();
+				if(outcome.equals("Negative") || outcome.equals("Very Negative"))
+				{
+					Result4.setForeground(Color.RED);
+				}
+				if(outcome.equals("Neutral"))
+				{
+					Result4.setForeground(Color.WHITE);
+				}
+				Result4.setText(outcome);
+				
+				barChartData4.removeValue("Negative", "");
+				barChartData4.removeValue("Positive", "");
+				barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getNegativeCount(),  "Negative", "");
+				barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getPositiveCount(),  "Positive", "");
+				Result3.setForeground(Color.GREEN);
+				
+				String outcome2 = justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getSentimentResult();
+				if(outcome2.equals("Negative"))
+				{
+					Result3.setForeground(Color.RED);
+				}
+				if(outcome2.equals("Neutral"))
+				{
+					Result3.setForeground(Color.WHITE);
+				}
+				Result3.setText(outcome2);
+				
+				sampleTextArea.setText(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getText());
+				TweetCount.setText(tweetSelected +" / " + tweetTotal);
+				GraphPanel.validate();
+				GraphPanel.repaint();
+				
+			
+				contentPane.validate();
+				contentPane.repaint();
+				}
+				else 
+				{
+					
+				}
+
 			}
 		});
 		
@@ -966,11 +1031,47 @@ public class TestMainGUI extends JFrame {
 				OverviewButton.setForeground(new Color(0, 150, 250));
 			}
 		});
-
+		
 		DetailedButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
+				if(timesClicked == 0) {
+					
+					timesClicked++;
+				tweetSelected = 1;
+				tweetTotal = justSearched.getDictionary_Report().getTotalTweets();
+				barChartData3.removeValue("Very Negative", "");
+				barChartData3.removeValue("Negative", "");
+				barChartData3.removeValue("Neutral", "");
+				barChartData3.removeValue("Positive", "");
+				barChartData3.removeValue("Very Positive", "");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryNegative(),  "Very Negative","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNegative(),  "Negative","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNeutral(),  "Neutral","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getPositive(),  "Positive","");
+				barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryPositive(),  "Very Positive","");
+				Result4.setForeground(Color.GREEN);
+				String outcome = justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getResult();
+				if(outcome.equals("Negative") || outcome.equals("Very Negative"))
+				{
+					Result4.setForeground(Color.RED);
+				}
+				Result4.setText(outcome);
+				
+				barChartData4.removeValue("Negative", "");
+				barChartData4.removeValue("Positive", "");
+				barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getNegativeCount(),  "Negative", "");
+				barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getPositiveCount(),  "Positive", "");
+				Result3.setForeground(Color.GREEN);
+				String outcome2 = justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getSentimentResult();
+				if(outcome2.equals("Negative"))
+				{
+					Result3.setForeground(Color.RED);
+				}
+				Result3.setText(outcome2);
+				
+				sampleTextArea.setText(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getText());
+				TweetCount.setText(tweetSelected +" / " + tweetTotal);
 				GraphPanel.remove(ModelPanel);
 				GraphPanel.remove(OverviewPanel);
 				GraphPanel.add(DetailedPanel, JLayeredPane.PALETTE_LAYER);
@@ -982,6 +1083,62 @@ public class TestMainGUI extends JFrame {
 				ModelButton.setForeground(Color.WHITE);
 				OverviewButton.setForeground(Color.WHITE);
 				DetailedButton.setForeground(new Color(0, 150, 250));
+				}
+				else
+				{
+					tweetTotal = justSearched.getDictionary_Report().getTotalTweets();
+					barChartData3.removeValue("Very Negative", "");
+					barChartData3.removeValue("Negative", "");
+					barChartData3.removeValue("Neutral", "");
+					barChartData3.removeValue("Positive", "");
+					barChartData3.removeValue("Very Positive", "");
+					barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryNegative(),  "Very Negative","");
+					barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNegative(),  "Negative","");
+					barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getNeutral(),  "Neutral","");
+					barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getPositive(),  "Positive","");
+					barChartData3.addValue(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getVeryPositive(),  "Very Positive","");
+					Result4.setForeground(Color.GREEN);
+					String outcome = justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getResult();
+					if(outcome.equals("Negative") || outcome.equals("Very Negative"))
+					{
+						Result4.setForeground(Color.RED);
+					}
+					if(outcome.equals("Neutral"))
+					{
+						Result4.setForeground(Color.WHITE);
+					}
+				
+					Result4.setText(outcome);
+					barChartData4.removeValue("Negative", "");
+					barChartData4.removeValue("Positive", "");
+					barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getNegativeCount(),  "Negative", "");
+					barChartData4.addValue(justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getPositiveCount(),  "Positive", "");
+					Result3.setForeground(Color.GREEN);
+					String outcome2 = justSearched.getDictionary_Report().getAnalysis().get(tweetSelected-1).getSentimentResult();
+					if(outcome2.equals("Negative"))
+					{
+						Result3.setForeground(Color.RED);
+					}
+					if(outcome2.equals("Neutral"))
+					{
+						Result3.setForeground(Color.WHITE);
+					}
+					Result3.setText(outcome2);
+					
+					sampleTextArea.setText(justSearched.getStanford_Report().getAnalysis().get(tweetSelected-1).getText());
+					TweetCount.setText(tweetSelected +" / " + tweetTotal);
+					GraphPanel.remove(ModelPanel);
+					GraphPanel.remove(OverviewPanel);
+					GraphPanel.add(DetailedPanel, JLayeredPane.PALETTE_LAYER);
+
+					GraphPanel.validate();
+					GraphPanel.repaint();
+					contentPane.validate();
+					contentPane.repaint();
+					ModelButton.setForeground(Color.WHITE);
+					OverviewButton.setForeground(Color.WHITE);
+					DetailedButton.setForeground(new Color(0, 150, 250));	
+				}
 			}
 		});
 
@@ -1018,13 +1175,146 @@ public class TestMainGUI extends JFrame {
 		HistoryLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+		
+				timesClicked = 0;
+				command = "History";
+				loop = false;
+				
+				loop2 = true;
+				
+				while(loop2);
+				
+				for (int i = 1; i < 6; i++) 
+				{
+					
+					JLabel keywordDATA = new JLabel("");
+					JLabel OutcomeDATA = new JLabel("");
+					JLabel countDATA = new JLabel("");
+					JLabel ZipDATA = new JLabel("");
+					JLabel UserDATA = new JLabel("");
+					
+					
+					
+					
+					
+					// Background Bar
+					Report justSearched2  = History.get(History.size()-i);
+					JPanel history1 = new JPanel();
+					history1.setBounds(0, (100 * i) + (15 * i), 774, 75);
+					history1.setBorder(line);
+					history1.setBackground(new Color(0, 50, 100));
+					history1.setOpaque(true);
+					history1.setLayout(null);
+					RightPanel2.add(history1, JLayeredPane.PALETTE_LAYER);
+
+					// keyword Label
+					JLabel keywordLabel = new JLabel("Keyword:");
+					keywordLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					keywordLabel.setBounds(50, 10, 100, 25);
+					keywordLabel.setForeground(Color.WHITE);
+					history1.add(keywordLabel, JLayeredPane.PALETTE_LAYER);
+					
+					
+					keywordDATA.setText(justSearched2.getDictionary_Report().getWordSearched());
+					keywordDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
+					keywordDATA.setBounds(48, 40, 100, 25);
+					keywordDATA.setForeground(Color.WHITE);
+					history1.add(keywordDATA, JLayeredPane.PALETTE_LAYER);
+
+					// outcome label
+					JLabel OutcomeLabel = new JLabel("Outcome:");
+					OutcomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					OutcomeLabel.setBounds(175, 10, 100, 25);
+					OutcomeLabel.setForeground(Color.WHITE);
+					history1.add(OutcomeLabel, JLayeredPane.PALETTE_LAYER);
+					
+
+					OutcomeDATA.setText(justSearched2.getStanford_Report().getSentimentalOutcome());
+					
+					OutcomeDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
+					OutcomeDATA.setBounds(173, 40, 100, 25);
+					OutcomeDATA.setForeground(Color.WHITE);
+					history1.add(OutcomeDATA, JLayeredPane.PALETTE_LAYER);
+
+					// Count Fields
+					JLabel countLabel2 = new JLabel("Data Count:");
+					countLabel2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					countLabel2.setBounds(300, 10, 100, 25);
+					countLabel2.setForeground(Color.WHITE);
+					history1.add(countLabel2, JLayeredPane.PALETTE_LAYER);
+
+					countDATA.setText(Integer.toString(justSearched2.getDictionary_Report().getTotalTweets()));
+					countDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
+					countDATA.setBounds(320, 40, 100, 25);
+					countDATA.setForeground(Color.WHITE);
+					history1.add(countDATA, JLayeredPane.PALETTE_LAYER);
+
+//					// Zipcode Fields
+//					JLabel ZipLabel2 = new JLabel("Zipcode:");
+//					ZipLabel2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//					ZipLabel2.setBounds(445, 10, 100, 25);
+//					ZipLabel2.setForeground(Color.WHITE);
+//					history1.add(ZipLabel2, JLayeredPane.PALETTE_LAYER);
+//
+//				
+//					ZipDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
+//					ZipDATA.setBounds(445, 40, 100, 25);
+//					ZipDATA.setForeground(Color.WHITE);
+//					history1.add(ZipDATA, JLayeredPane.PALETTE_LAYER);
+
+					// User Fields
+					JLabel UserLabel = new JLabel("User Searched:");
+					UserLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					UserLabel.setBounds(445, 10, 125, 25);
+					UserLabel.setForeground(Color.WHITE);
+					history1.add(UserLabel, JLayeredPane.PALETTE_LAYER);
+
+					UserDATA.setText(justSearched2.getUserSearched());
+					UserDATA.setFont(new Font("Tahoma", Font.PLAIN, 22));
+					UserDATA.setBounds(445, 40, 150, 25);
+					UserDATA.setForeground(Color.WHITE);
+					history1.add(UserDATA, JLayeredPane.PALETTE_LAYER);
+
+					// View Button
+					
+					
+//					ViewButton.setIcon(new ImageIcon(TestMainGUI.class.getResource("/images/View Button.png")));
+//					ViewButton.setBounds(675, 0, 100, 75);
+//					history1.add(ViewButton, JLayeredPane.PALETTE_LAYER);
+					
+//					ViewButton.addMouseListener(new MouseAdapter() {
+//						@Override
+//						public void mouseClicked(MouseEvent arg0) {
+//							contentPane.remove(RightPanel2);
+//							contentPane.remove(RightPanel3);
+//							contentPane.remove(RightPanel);
+//							contentPane.add(RightPanel);
+//							HistoryLabel.setForeground(Color.WHITE);
+//							searchLabel.setForeground(new Color(0, 150, 250));
+//							contentPane.validate();
+//							contentPane.repaint();
+//						}
+//					});
+
+				}
+				
+				
+				
+
+				
+				
+				
+				
+				
+				RightPanel2.validate();
+				RightPanel2.repaint();
+				
 
 				contentPane.remove(RightPanel);
 				contentPane.remove(RightPanel2);
 				contentPane.remove(RightPanel3);
 				contentPane.add(RightPanel2);
-				RightPanel.validate();
-				RightPanel.repaint();
+				
 				HistoryLabel.setForeground(new Color(0, 150, 250));
 				searchLabel.setForeground(Color.WHITE);
 				contentPane.validate();
